@@ -1,9 +1,12 @@
 <?php
 
+// Set Pagination page number
+$page = (isset($_GET['page']) && !empty($_GET['page']))? $_GET['page']:1;
+
 $curl = curl_init();
 
 curl_setopt_array($curl, array(
-  CURLOPT_URL => "https://api.github.com/repos/darshanswami/gitactivity/events",
+  CURLOPT_URL => "https://api.github.com/repos/darshanswami/gitactivity/events?page=".$page."&per_page=100",
   CURLOPT_RETURNTRANSFER => true,
   CURLOPT_SSL_VERIFYHOST => false,
   CURLOPT_SSL_VERIFYPEER => false,
