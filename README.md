@@ -5,4 +5,4 @@ This is a small Javascript plugin that creates a stream of your recent GitHub ac
 
 ## Documentation
 
-Pull repo to your local PHP system(XAMPP Server) in root and run it in browser like `http://localhost/gitactivity/`
+Clone this repo to your local PHP system(XAMPP Server) in root and run it in browser like `http://localhost/gitactivity/`
