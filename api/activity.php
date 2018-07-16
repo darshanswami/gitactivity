@@ -1,12 +1,19 @@
 <?php
 
+if ((!isset($_GET['owner']) || empty($_GET['owner'])) || (!isset($_GET['repo']) || empty($_GET['repo']))) {
+  return false;
+}
+// set owner
+$owner = $_GET['owner'];
+// set repo
+$repo = $_GET['repo'];
 // Set Pagination page number
 $page = (isset($_GET['page']) && !empty($_GET['page']))? $_GET['page']:1;
 
 $curl = curl_init();
 
 curl_setopt_array($curl, array(
-  CURLOPT_URL => "https://api.github.com/repos/darshanswami/gitactivity/events?page=".$page."&per_page=100",
+  CURLOPT_URL => "https://api.github.com/repos/".$owner."/".$repo."/events?page=".$page."&per_page=100",
   CURLOPT_RETURNTRANSFER => true,
   CURLOPT_SSL_VERIFYHOST => false,
   CURLOPT_SSL_VERIFYPEER => false,

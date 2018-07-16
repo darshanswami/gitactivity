@@ -42,10 +42,6 @@ var config = {
 };
 var gitGraph = new GitGraph(config);
 
-/************************
- * BRANCHES AND COMMITS *
- ************************/
-
 // Create branch named "master"
 var master = gitGraph.branch("master");
 
@@ -53,23 +49,35 @@ var branchesArr = [];
 branchesArr["master"] = master;
 var page=1;
 
-loadGraph();
-function loadGraph(page=1) {
+var ownerName = $("#ownerName").val();
+var repoName = $("#repoName").val();
+if (repoName && ownerName) {
+  loadGraph(ownerName,repoName);
+}
+function loadGraph(ownerName,repoName,page=1) {
   $("#loadMore").css('visibility', 'hidden');
   $("#loadMore").prop('disabled', true);
   $("#loader").css('visibility', 'visible');
   $.ajax({
       type: 'GET',
-      url: 'api/activity.php?page='+page,
+      url: 'api/activity.php?owner='+ownerName+'&repo='+repoName+'&page='+page+'',
       data: {},
       success: function(response){
           $("#loader").css('visibility', 'hidden');
           $("#loadMore").css('visibility', 'visible');
           $("#loadMore").prop('disabled', false);
           var obj = jQuery.parseJSON( response );
+          // check response length
           if (obj.length==0) {
             $("#loadMore").css('visibility', 'hidden');
             $(".message").html('No more activity.');
+          }
+          // check validation of response
+          if (obj.message) {
+            $("#loadMore").css('visibility', 'hidden');
+            $("#loader").css('visibility', 'hidden');
+            $(".message").html(obj.message);
+            return false;
           }
           for (var k = (obj.length - 1); k > -1; k--) {
             var value = obj[k];
@@ -210,6 +218,17 @@ function loadGraph(page=1) {
 }
 
 $("#loadMore").click(function(argument) {
-  page = page + 1;
-  loadGraph(page);
+  var ownerName = $("#ownerName").val();
+  var repoName = $("#repoName").val();
+  if (repoName && ownerName) {
+    page = page + 1;
+    loadGraph(ownerName,repoName,page);
+  }
+})
+$("#submitRepo").click(function(argument) {
+  var ownerName = $("#ownerName").val();
+  var repoName = $("#repoName").val();
+  if (repoName && ownerName) {
+    loadGraph(ownerName,repoName,1);
+  }
 })

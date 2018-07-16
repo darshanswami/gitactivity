@@ -17,3 +17,6 @@
     -moz-transition: all 600ms ease-in-out;
     -o-transition: all 600ms ease-in-out;
 }
+#loader{
+    visibility: hidden;
+}
