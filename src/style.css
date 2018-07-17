@@ -20,3 +20,19 @@
 #loader{
     visibility: hidden;
 }
+#treeView{
+    position: relative;
+    left: 8px;
+}
+.message{
+    font-size: 14px;
+    font-family: sans-serif;
+    left:500;
+    color: #A4A4A4;
+}
+.otherBranch{color: #54B4CD;}
+.masterBranch{color: #A4A4A4;}
+.newBranch{color: #F3CB32;}
+.square{
+    border-radius: 25px;
+}
