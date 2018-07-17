@@ -51,6 +51,7 @@ function loadGraph(ownerName,repoName,page=1) {
             var title = '';
             var type = value.type;
             var id = value.id;
+            var commitId = id.substring(0, 7);
 
             var data = value;
             var p = data.payload;
@@ -164,7 +165,7 @@ function loadGraph(ownerName,repoName,page=1) {
                   $("#treeView").append(line);
                 }
 
-                var message = '<span class="message" style=" position:absolute; top:'+squareTop+';">['+branchTo+']'+subTitle+'</span>'
+                var message = '<span class="message" style=" position:absolute; top:'+squareTop+';">['+branchTo+'] '+commitId+','+subTitle+'</span>'
                 $("#treeView").append(message);
 
               }else{
@@ -182,7 +183,7 @@ function loadGraph(ownerName,repoName,page=1) {
                 if (value.payload.ref == value.payload.master_branch) {
                   title = ', '+username+' created branch '+value.payload.ref+' at '+value.repo.name+'';
                 }else{
-                  subTitle = '['+value.payload.ref+'], '+username+' created branch '+value.payload.ref+' at '+value.repo.name+'';
+                  subTitle = '['+value.payload.ref+'] '+commitId+', '+username+' created branch '+value.payload.ref+' at '+value.repo.name+'';
 
                   // Create a new branch from "master" with some custom configuration
                   var branchCount = $(".branch").length;
@@ -245,7 +246,7 @@ function loadGraph(ownerName,repoName,page=1) {
                     $("#treeView").append(line);
                   }
 
-                  var message = '<span class="message otherBranch" style=" position:absolute; top:'+squareTop+';">['+value.payload.ref+']'+title+'</span>'
+                  var message = '<span class="message otherBranch" style=" position:absolute; top:'+squareTop+';">['+value.payload.ref+'] '+commitId+''+title+'</span>'
                   // Display commite message
                   $("#treeView").append(message);
 
@@ -286,7 +287,7 @@ function loadGraph(ownerName,repoName,page=1) {
                     $("#treeView").append(line);
                   }
 
-                  var message = '<span class="message masterBranch" style=" position:absolute; top:'+squareTop+';">[master]'+title+'</span>'
+                  var message = '<span class="message masterBranch" style=" position:absolute; top:'+squareTop+';">[master] '+commitId+''+title+'</span>'
                   // display commite message
                   $("#treeView").append(message);
 
